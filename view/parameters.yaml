@@ -1,0 +1,90 @@
+---
+parameters:
+    avg: 2
+    maxNbPoints: 2000
+    timeFormat: milliseconds
+
+datasets:
+    - dataset:
+        key: temperature
+        order: 0
+        name: Temperature
+        description: Temperature in °C
+        format: '#,###.##°C'
+        thresholds:
+            min: 15
+            max: 30
+        transformer: x
+    - dataset:
+        key: humidity
+        order: 1
+        name: Humidity
+        description: Humidity in pct
+        format: '#.#'
+        thresholds:
+            min: 10
+            max: 60
+    - dataset:
+        key: P0.3_air
+        order: 2
+        name: P 0,3um.0,1L
+        description: Particulates 0.3 microns per 0.1L of air
+        format: '#,###.##'
+    - dataset:
+        key: P0.5_air
+        order: 3
+        name: P 0,5um.0,1L
+        description: Particulates 0.5 microns per 0.1L of air
+        format: '#,###.##'
+    - dataset:
+        key: P1_air
+        order: 4
+        name: P 1um.0,1L
+        description: Particulates 1 microns per 0.1L of air
+        format: '#,###.##'
+    - dataset:
+        key: P2.5_m3
+        order: 5
+        name: P 2.5um.m3
+        description: Particulates 2.5 microns per cubic meter
+        format: '#,###.##'
+        thresholds:
+            min: 0
+            max: 25
+    - dataset:
+        key: P10_m3
+        order: 6
+        name: P 10um.m3
+        description: Particulates 10 microns per cubic meter
+        format: '#,###.##'
+        thresholds:
+            min: 0
+            max: 50
+    - dataset:
+        key: oxidising
+        order: 7
+        name: Oxidising Gas
+        description: Nitrogen dioxide (positively correlated)
+        format: '#,###.##'
+        transformer: pow(10, log10(x/20000) - 0.8129)
+    - dataset:
+        key: reducing
+        order: 8
+        name: Reducing Gas
+        description: Carbon monoxide (negatively correlated)
+        format: '#,###.##'
+        transformer: pow(10, -1.25 * log10(x/200000) + 0.64)
+    - dataset:
+        key: nh3
+        order: 9
+        name: NH3 Gas
+        description: Ammonia (negatively correlated)
+        format: '#,###.##'
+        transformer: pow(10, -1.8 * log10(x/750000) - 0.163)
+    - dataset:
+        key: pressure
+        order: 10
+        name: Pressure
+        description: Pressure in Pa
+        format: '#,###.##'
+        transformer: x / 100
