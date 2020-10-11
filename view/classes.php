@@ -12,7 +12,7 @@ class Dashboard{
 	private $lastReadingTime;
 	
 	public function __construct(){
-		$allParameters = yaml_parse_file("./parameters.yaml");
+		$allParameters = json_decode(file_get_contents("./parameters.json"), TRUE);
 		$this->parameters = $allParameters["parameters"];
 		$this->datasetsNames = $allParameters["datasets"];
 		$this->records = array();
